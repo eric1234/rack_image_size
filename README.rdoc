@@ -1,0 +1,25 @@
+= Rack::ImageSize
+
+Will add width and height information to all image tags where they do
+not already exists resulting in faster page rendering. This is due to
+the fact that the browser doesn't need to re-layout the page after each
+image is received and the size can be determined. Since it knows the
+size up-front it can lay it out right the first time and simply insert
+the image into the existing space when it receives them.
+
+= Usage
+
+    use Rack::ImageSize
+
+This library depends on being able to call the "identify" imagemagick
+command. If you have some non-standard location for this then the
+following configuration should help you out:
+
+    Rack::ImageSize::IDENTIFY_COMMAND.replace '/path/to/identify'
+
+If identify is in your PATH then the configuration should not be
+necessary.
+
+= Credit
+
+This gem was developed by Eric Anderson (http://pixelwareinc.com).
