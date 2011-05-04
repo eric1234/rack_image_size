@@ -40,6 +40,11 @@ module Rack
     # You can do a replace to set to something different
     IDENTIFY_COMMAND = `which identify`.chop
 
+    # The timeout to use before considering the resource un-accessible.
+    # Keeps us from spending too much time. To change this just update
+    # the constant (squashing warnings)
+    TIMEOUT = 2
+
     # Standard middleware interface:
     #
     #     use Rack::ImageSize
