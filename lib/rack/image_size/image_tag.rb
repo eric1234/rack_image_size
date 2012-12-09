@@ -16,7 +16,7 @@ class Rack::ImageSize::ImageTag < Rack::ImageSize::Tag
     cached uri do
       begin
         Timeout::timeout(Rack::ImageSize::TIMEOUT) do
-          open(uri.to_s) do |image|
+          open(uri.to_s, 'rb') do |image|
             # QUESTION: Should we sanitize this? If the path comes from
             # user input then it could open an exploit. But that is not
             # the common case. So perhaps the site should just do width

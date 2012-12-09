@@ -15,7 +15,7 @@ end
 class StringIO
 
   def to_tempfile
-    t = Tempfile.new 'string-io'
+    t = Tempfile.new 'string-io', nil, :encoding => 'ascii-8bit'
     t.write self.read
     t.rewind
     t

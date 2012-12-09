@@ -1,17 +1,17 @@
 PATH
   remote: .
   specs:
-    rack_image_size (0.0.2)
+    rack_image_size (0.0.3)
       rack
       rack_replace
 
 GEM
   remote: http://rubygems.org/
   specs:
-    rack (1.2.2)
-    rack_replace (0.0.1)
+    rack (1.4.1)
+    rack_replace (0.0.3)
       rack
-    rake (0.8.7)
+    rake (10.0.2)
 
 PLATFORMS
   ruby

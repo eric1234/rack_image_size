@@ -9,7 +9,7 @@ class MiddlewareTest < Test::Unit::TestCase
   def test_call
     app = Rack::Builder.new do
       use Rack::ImageSize
-      run proc {|env| [200, {}, [%q{
+      run proc {|env| [200, {'Content-Type' => 'text/html'}, [%q{
 <img src="logo.png">
 <img src="/images/icons/adwords-24.gif">
 <img src="http://www.google.com/images/logos/ps_logo.png">
