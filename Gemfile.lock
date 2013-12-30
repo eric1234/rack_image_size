@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rack_image_size (0.0.3)
+    rack_image_size (0.0.4)
       rack
       rack_replace
 

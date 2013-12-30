@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
 
   s.name        = "rack_image_size"
-  s.version     = '0.0.3'
+  s.version     = '0.0.4'
   s.authors     = ['Eric Anderson']
   s.email       = ['eric@pixelwareinc.com']
 
