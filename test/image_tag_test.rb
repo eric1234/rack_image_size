@@ -27,12 +27,15 @@ class ImageTagTest < Test::Unit::TestCase
   end
 
   def test_dimensions
-    google = Rack::ImageSize::ImageTag.new '<img src="http://www.google.com/images/logos/logo.png">'
-    assert_equal [103, 40], google.dimensions
+    google = Rack::ImageSize::ImageTag.new '<img src="http://www.google.com/images/errors/logo_sm.gif">'
+    assert_equal [150, 55], google.dimensions
     assert_equal [411, 142], google.dimensions('http://www.google.com/images/logos/ps_logo.png')
     assert_equal [411, 142], Rack::ImageSize::ImageTag::CACHE['http://www.google.com/images/logos/ps_logo.png']
     Rack::ImageSize::ImageTag::CACHE['http://www.google.com/images/logos/ps_logo.png'] = [200, 200]
     assert_equal [200, 200], google.dimensions('http://www.google.com/images/logos/ps_logo.png')
+    $stderr.reopen open('/dev/null', 'w+')
+    assert_nil google.dimensions('http://www.google.com/fake.png')
+    $stderr.reopen STDERR
     Rack::ImageSize::ImageTag::CACHE.clear
   end
 

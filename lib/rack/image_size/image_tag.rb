@@ -16,13 +16,18 @@ class Rack::ImageSize::ImageTag < Rack::ImageSize::Tag
     cached uri do
       begin
         Timeout::timeout(Rack::ImageSize::TIMEOUT) do
-          open(uri.to_s, 'rb') do |image|
-            # QUESTION: Should we sanitize this? If the path comes from
-            # user input then it could open an exploit. But that is not
-            # the common case. So perhaps the site should just do width
-            # and height itself if the image comes from user input.
-            specs = `#{Rack::ImageSize::IDENTIFY_COMMAND} #{image.to_tempfile.path}`
-            specs.split(/\s+/, 4)[2].split('x').collect(&:to_i) if $? == 0
+          begin
+            open(uri.to_s, 'rb') do |image|
+              # QUESTION: Should we sanitize this? If the path comes from
+              # user input then it could open an exploit. But that is not
+              # the common case. So perhaps the site should just do width
+              # and height itself if the image comes from user input.
+              specs = `#{Rack::ImageSize::IDENTIFY_COMMAND} #{image.to_tempfile.path}`
+              specs.split(/\s+/, 4)[2].split('x').collect(&:to_i) if $? == 0
+            end
+          rescue OpenURI::HTTPError
+            $stderr.puts "Failed to load #{uri}"
+            nil
           end
         end
       rescue Timeout::Error
