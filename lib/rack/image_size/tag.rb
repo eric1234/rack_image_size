@@ -14,34 +14,17 @@ class Rack::ImageSize::Tag
 
   # Will add the given style to the style tag. Will work regardless if
   # the style attribute already exists.
-  def add_style!(style)
-    if has_style?
-      append_style style
-    else
-      install_style style
-    end
+  def []=(attribute, value)
+    @tag.sub!(
+      / #{Regexp.escape attribute}\=((['"])[^\2]*\2)/,
+      %Q! #{attribute}=\\2#{value}\\2!
+    ) ||
+    @tag.sub!(/(\/?\>)$/, %Q{ #{attribute}="#{value}"\\1})
   end
 
   # Will return the tag's as a plain string
   def to_s
     @tag
-  end
-
-  private
-
-  # Does the tag already have a style attribute
-  def has_style?
-    @tag =~ /style/
-  end
-
-  # Add the given style to the already existing style attribute
-  def append_style(style)
-    @tag.sub! /(style\s*=\s*\"[^"]+)\"/, %Q{\\1;#{style}"}
-  end
-
-  # Add the given style to the tag without a style attribute
-  def install_style(style)
-    @tag.sub! /(\/?\>)$/, %Q{ style="#{style}"\\1}
   end
 
 end

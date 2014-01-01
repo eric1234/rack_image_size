@@ -11,16 +11,16 @@ class TagTest < Test::Unit::TestCase
     assert_equal %q{<img src="foo.gif" alt="Bar">}, @tag.to_s
   end
 
-  def test_accessor
+  def test_attribute_reader
     assert_equal 'foo.gif', @tag['src']
     assert_equal 'Bar', @tag['alt']
   end
 
-  def test_style
-    @tag.add_style! "width: 230px"
-    assert_equal %q{<img src="foo.gif" alt="Bar" style="width: 230px">}, @tag.to_s
-    @tag.add_style! "height: 150px"
-    assert_equal %q{<img src="foo.gif" alt="Bar" style="width: 230px;height: 150px">}, @tag.to_s
+  def test_attribute_writer
+    @tag['alt'] = 'Baz'
+    assert_equal %q{<img src="foo.gif" alt="Baz">}, @tag.to_s
+    @tag['title'] = 'Boo'
+    assert_equal %q{<img src="foo.gif" alt="Baz" title="Boo">}, @tag.to_s
   end
 
 end

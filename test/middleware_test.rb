@@ -17,9 +17,9 @@ class MiddlewareTest < Test::Unit::TestCase
     end.to_app
     mock = Rack::MockRequest.new app
     assert_equal %q{
-<img src="logo_sm.gif" style="width:150px;height:55px">
-<img src="/images/icons/adwords-24.gif" style="width:24px;height:24px">
-<img src="http://www.google.com/images/logos/ps_logo.png" style="width:411px;height:142px">
+<img src="logo_sm.gif" width="150" height="55">
+<img src="/images/icons/adwords-24.gif" width="24" height="24">
+<img src="http://www.google.com/images/logos/ps_logo.png" width="411" height="142">
     }.strip, mock.get('http://www.google.com/images/errors/index.html').body.strip    
   end
 

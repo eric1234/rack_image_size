@@ -55,10 +55,10 @@ module Rack
         if !image.has_dimensions? && uri
           uri.urify! env
           width, height = *image.dimensions(uri)
-          image.add_style! "width:#{width}px;height:#{height}px"
-        else
-          image
+          image['width'] = width
+          image['height'] = height
         end
+        image
       end
     end
 
